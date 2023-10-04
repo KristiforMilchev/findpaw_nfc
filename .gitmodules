@@ -1,0 +1,18 @@
+[submodule "Airzen_Shared_Views"]
+	path = Airzen_Shared_Views
+	url = git@git.airzen.io:frontends/Airzen_Shared_Views.git
+[submodule "Airzen_App_Localization"]
+	path = Airzen_App_Localization
+	url = git@git.airzen.io:frontends/Airzen_App_Localization.git
+[submodule "Airzen_App_Infrastructure"]
+	path = Airzen_App_Infrastructure
+	url = git@git.airzen.io:frontends/Airzen_App_Infrastructure.git
+[submodule "Airzen_App_Application"]
+	path = Airzen_App_Application
+	url = git@git.airzen.io:frontends/Airzen_App_Application.git
+[submodule "Airzen_App_Components"]
+	path = Airzen_App_Components
+	url = git@git.airzen.io:frontends/Airzen_App_Components.git
+[submodule "domain"]
+	path = domain
+	url = git@git.airzen.io:frontends/domain.git

@@ -1,0 +1,57 @@
+[
+    {
+        "data": {
+            "name": "Smart Devices",
+            "isDefault": false,
+            "online": true,
+            "devices": 3,
+            "id": 1,
+            "customerId": 1
+        },
+        "tokens": [
+            "km@airzen.io",
+            "partner"
+        ]
+    },
+    {
+        "data": {
+            "name": "Guests",
+            "isDefault": false,
+            "online": true,
+            "devices": 2,
+            "id": 2,
+            "customerId": 1
+        },
+        "tokens": [
+            "km@airzen.io",
+            "partner"
+        ]
+    },
+    {
+        "data": {
+            "name": "Steffen",
+            "isDefault": false,
+            "online": false,
+            "devices": 5,
+            "id": 3,
+            "customerId": 1
+        },
+        "tokens": [
+            "km@airzen.io"
+        ]
+    },
+    {
+        "data": {
+            "name": "Tilda",
+            "isDefault": false,
+            "online": true,
+            "devices": 1,
+            "id": 4,
+            "customerId": 1
+        },
+        "tokens": [
+            "km@airzen.io",
+            "partner"
+        ]
+    }
+]
