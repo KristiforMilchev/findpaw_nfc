@@ -11,6 +11,8 @@ class DashboardViewModel extends PageViewModel {
   late INfcService _nfcService;
   Widget _activeScreen = ScannerView();
   Widget get activeScreen => _activeScreen;
+  bool _isNfcEnabled = true;
+  bool get isNfcEnabled => _isNfcEnabled;
 
   ActiveDashboardView _activeView = ActiveDashboardView.scanTag;
   ActiveDashboardView get view => _activeView;
@@ -53,7 +55,13 @@ class DashboardViewModel extends PageViewModel {
     _activeView = ActiveDashboardView.scanTag;
   }
 
-  void startScanner() {
+  void startScanner() async {
+    _isNfcEnabled = await _nfcService.isNfcSuported();
+    if (!_isNfcEnabled) {
+      notifyListeners();
+      return;
+    }
+
     _nfcService.readTag();
   }
 }
