@@ -89,6 +89,7 @@ flutter:
     - packages/domain/assets/animations/success_checkmark.riv
     - packages/domain/assets/animations/scanner.riv
     - packages/domain/assets/animations/write_chip.riv
+    - packages/domain/assets/animations/attention.riv
 
 
     # certificates

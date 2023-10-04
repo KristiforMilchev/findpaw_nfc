@@ -39,9 +39,16 @@ class NfcService implements INfcService {
   Future<bool> writeTag(Tag tag) async {
     String jsonString = json.encode(tag.toJson());
     await FlutterNfcKit.poll();
+    String data = "";
+    data += "${tag.name} \r\n";
+    data += "${tag.number} \r\n";
+    data += "${tag.address} \r\n";
+    data += "${tag.petName} \r\n";
+    data += "${tag.note} \r\n";
+
     await FlutterNfcKit.writeNDEFRecords(
       [
-        new ndef.UriRecord.fromString(jsonString),
+        new ndef.UriRecord.fromString(data),
       ],
     );
 
