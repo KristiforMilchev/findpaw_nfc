@@ -18,6 +18,8 @@ class CustomIconButton extends StatelessWidget {
   List<double> stops;
   bool enabled;
   final bool playAnim;
+  final BorderRadius? decorationRadius;
+  final double? btnRadius;
   CustomIconButton({
     super.key,
     required this.label,
@@ -32,6 +34,8 @@ class CustomIconButton extends StatelessWidget {
     this.fontColor = const Color.fromRGBO(255, 255, 255, 0.9),
     this.enabled = true,
     this.playAnim = false,
+    this.btnRadius,
+    this.decorationRadius,
   });
 
   @override
@@ -46,7 +50,8 @@ class CustomIconButton extends StatelessWidget {
           opacity: enabled ? 1 : 0.5,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(28)),
+              borderRadius: decorationRadius ??
+                  const BorderRadius.all(Radius.circular(28)),
               color: solidColor,
             ),
             child: Container(
@@ -58,7 +63,7 @@ class CustomIconButton extends StatelessWidget {
                       borderColor,
                       const Color.fromRGBO(0, 0, 0, 0.2),
                     ],
-                    radius: 10,
+                    radius: btnRadius ?? 10,
                     stops: const [0.001, 1],
                     focal: Alignment.topLeft,
                     focalRadius: 1,
@@ -73,7 +78,8 @@ class CustomIconButton extends StatelessWidget {
                         stops: stops,
                         transform: const GradientRotation(143.26),
                       ),
-                borderRadius: const BorderRadius.all(Radius.circular(28)),
+                borderRadius: decorationRadius ??
+                    const BorderRadius.all(Radius.circular(28)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
