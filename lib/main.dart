@@ -1,5 +1,4 @@
 import 'package:domain/models/core_router.dart';
-import 'package:domain/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
