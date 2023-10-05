@@ -3,6 +3,7 @@ import 'package:domain/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/components/custom_button/custom_button.dart';
+import 'package:presentation/components/nfc_missing/nfc_missing.dart';
 import 'package:presentation/views/dashboard/dashboard_viewmodel.dart';
 import 'package:rive/rive.dart';
 import 'package:stacked/stacked.dart';
@@ -24,10 +25,7 @@ class DashboardView extends StatelessWidget {
               children: [
                 if (!viewModel.isNfcEnabled)
                   Expanded(
-                    child: RiveAnimation.asset(
-                      fit: BoxFit.contain,
-                      "packages/domain/assets/animations/attention.riv",
-                    ),
+                    child: NfcMissing(),
                   ),
                 if (viewModel.isNfcEnabled)
                   Expanded(child: viewModel.activeScreen),
