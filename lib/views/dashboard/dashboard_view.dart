@@ -1,10 +1,12 @@
 import 'package:domain/models/enums.dart';
+import 'package:domain/models/tag.dart';
 import 'package:domain/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/components/custom_button/custom_button.dart';
 import 'package:presentation/components/nfc_missing/nfc_missing.dart';
 import 'package:presentation/views/dashboard/dashboard_viewmodel.dart';
+import 'package:presentation/views/lock_tag/lock_tag_view.dart';
 import 'package:rive/rive.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,7 +27,15 @@ class DashboardView extends StatelessWidget {
               children: [
                 if (!viewModel.isNfcEnabled)
                   Expanded(
-                    child: NfcMissing(),
+                    child: LockTagView(
+                      tag: Tag(
+                        name: "name",
+                        number: "da",
+                        address: "adsad",
+                        petName: "asdasda",
+                        password: "asda",
+                      ),
+                    ),
                   ),
                 if (viewModel.isNfcEnabled)
                   Expanded(child: viewModel.activeScreen),
