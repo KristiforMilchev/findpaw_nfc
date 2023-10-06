@@ -2,6 +2,7 @@ import 'package:domain/models/tag.dart';
 import 'package:domain/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/components/custom_icon_button/custom_icon_button.dart';
+import 'package:presentation/components/tag_component/tag_component.dart';
 import 'package:presentation/views/lock_tag/lock_tag_viewmodel.dart';
 import 'package:rive/rive.dart';
 import 'package:stacked/stacked.dart';
@@ -18,85 +19,21 @@ class LockTagView extends StatelessWidget {
         child: Stack(
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: Text(
-                    "Tag information",
-                    style: ThemeStyles.regularParagraphOv(
-                      color: ThemeStyles.acentColor,
-                      size: 20,
-                      weight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "Owner: ${viewModel.tag.name}",
-                    style: ThemeStyles.regularParagraphOv(
-                      color: ThemeStyles.secondAccent,
-                      size: 15,
-                      weight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "Phone: ${viewModel.tag.number}",
-                    style: ThemeStyles.regularParagraphOv(
-                      color: ThemeStyles.secondAccent,
-                      size: 15,
-                      weight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "Address: ${viewModel.tag.address}",
-                    style: ThemeStyles.regularParagraphOv(
-                      color: ThemeStyles.secondAccent,
-                      size: 15,
-                      weight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "Pet name: ${viewModel.tag.petName}",
-                    style: ThemeStyles.regularParagraphOv(
-                      color: ThemeStyles.secondAccent,
-                      size: 15,
-                      weight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                if (viewModel.tag.note != null)
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      "Note: ${viewModel.tag.note}",
-                      style: ThemeStyles.regularParagraphOv(
-                        color: ThemeStyles.secondAccent,
-                        size: 15,
-                        weight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  )
+                TagComponent(tag: tag),
               ],
             ),
-            RiveAnimation.asset(
-              fit: BoxFit.contain,
-              "packages/domain/assets/animations/attention.riv",
+            Positioned(
+              height: ThemeStyles.height! / 1.03,
+              width: ThemeStyles.width,
+              child: Container(
+                width: 200,
+                height: 200,
+                child: RiveAnimation.asset(
+                  fit: BoxFit.contain,
+                  "packages/domain/assets/animations/attention.riv",
+                ),
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -142,7 +79,7 @@ class LockTagView extends StatelessWidget {
                         child: CustomIconButton(
                           label: "Confirm",
                           callback: viewModel.onConfirmPressed,
-                          solidColor: ThemeStyles.secondaryColor,
+                          solidColor: ThemeStyles.acentColor,
                           decorationRadius:
                               BorderRadius.all(Radius.circular(6)),
                           btnRadius: 6,

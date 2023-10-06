@@ -19,23 +19,14 @@ class DashboardView extends StatelessWidget {
       viewModelBuilder: () => DashboardViewModel(context),
       onViewModelReady: (viewModel) => viewModel.ready(),
       builder: (context, viewModel, child) => Material(
-        color: Colors.transparent,
+        color: Color.fromARGB(255, 16, 32, 61),
         child: Container(
-          color: Color.fromARGB(255, 16, 32, 61),
           child: SafeArea(
             child: Column(
               children: [
                 if (!viewModel.isNfcEnabled)
                   Expanded(
-                    child: LockTagView(
-                      tag: Tag(
-                        name: "name",
-                        number: "da",
-                        address: "adsad",
-                        petName: "asdasda",
-                        password: "asda",
-                      ),
-                    ),
+                    child: NfcMissing(),
                   ),
                 if (viewModel.isNfcEnabled)
                   Expanded(child: viewModel.activeScreen),

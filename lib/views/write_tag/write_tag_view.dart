@@ -18,11 +18,11 @@ class WriteTagView extends StatelessWidget {
           children: [
             Visibility(
               visible: viewModel.writeFinished,
-              child: RiveAnimation.asset(
+              replacement: RiveAnimation.asset(
                 fit: BoxFit.contain,
                 "packages/domain/assets/animations/write_chip.riv",
               ),
-              replacement: RiveAnimation.asset(
+              child: RiveAnimation.asset(
                 fit: BoxFit.contain,
                 "packages/domain/assets/animations/success_checkmark.riv",
               ),

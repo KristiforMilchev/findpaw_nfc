@@ -3,7 +3,9 @@ import 'package:domain/models/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:infrastructure/interfaces/infc_service.dart';
 import 'package:presentation/page_view_model.dart';
+import 'package:presentation/views/lock_tag/lock_tag_view.dart';
 import 'package:presentation/views/new_tag/new_tag_view.dart';
+import 'package:presentation/views/scan_result/scan_result_view.dart';
 import 'package:presentation/views/scanner/scanner_view.dart';
 import 'package:presentation/views/write_tag/write_tag_view.dart';
 
@@ -24,6 +26,8 @@ class DashboardViewModel extends PageViewModel {
     startScanner();
     observer.subscribe("on_write_activated", onWriteActivated);
     observer.subscribe("nfc_tag_created", onTagWritten);
+    observer.subscribe("nfc_tag_scanned", onTagScanned);
+    observer.subscribe("nfc_tag_protect", onTagProtectRequest);
   }
 
   onAddNewSelected() {
@@ -61,7 +65,15 @@ class DashboardViewModel extends PageViewModel {
       notifyListeners();
       return;
     }
+  }
 
-    _nfcService.readTag();
+  onTagScanned(Tag tag) {
+    _activeScreen = ScanResultView(tag: tag);
+    notifyListeners();
+  }
+
+  onTagProtectRequest(Tag tag) {
+    _activeScreen = LockTagView(tag: tag);
+    notifyListeners();
   }
 }
