@@ -6,11 +6,6 @@ class NewTagViewModel extends PageViewModel {
   bool _autoGeneratePassword = true;
   bool get autoGeneratePassword => _autoGeneratePassword;
 
-  String _randomPassword = "adsad";
-  String get randomPasswrd => _randomPassword;
-
-  String _manualPassword = "";
-
   String _name = "";
   String _phone = "";
   String _address = "";
@@ -44,10 +39,6 @@ class NewTagViewModel extends PageViewModel {
     notifyListeners();
   }
 
-  onManualPasswordChanged(String password) {
-    _manualPassword = password;
-  }
-
   onCreateTagPressed() {
     var newTag = Tag(
       name: _name,
@@ -55,7 +46,6 @@ class NewTagViewModel extends PageViewModel {
       address: _address,
       petName: _petName,
       note: _note,
-      password: _manualPassword.isEmpty ? _randomPassword : _manualPassword,
     );
 
     //if (TagValidator.validate(newTag))

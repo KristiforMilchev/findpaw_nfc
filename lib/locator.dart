@@ -15,7 +15,7 @@ void registerDependency() {
   getIt.registerSingleton<IExceptionManager>(ExceptionManager());
   getIt.registerSingleton<IPageRouterService>(PageRouterService(observer));
   getIt.registerSingleton<IObserver>(observer);
-  getIt.registerSingleton<INfcService>(NfcService());
+  getIt.registerSingleton<INfcService>(NfcService(observer));
 
   /// TPM Not implemented
 }

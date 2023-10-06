@@ -39,7 +39,7 @@ class MainViewModel extends BaseViewModel {
       if (error is BaseException) {
         _exceptionManager.raisePopup(error);
       }
-
+      print(error);
       return true;
     };
   }

@@ -45,64 +45,7 @@ class NewTagView extends StatelessWidget {
                 floatingLabel: "Note",
                 onChange: viewModel.onNoteChanged,
               ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Visibility(
-                    visible: !viewModel.autoGeneratePassword,
-                    child: Expanded(
-                      child: CustomTextField(
-                        floatingLabel: "Manual tag password",
-                        onChange: viewModel.onManualPasswordChanged,
-                      ),
-                    ),
-                    replacement: Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Container(
-                              padding: EdgeInsets.all(15),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Generated tag password",
-                                    style: ThemeStyles.regularParagraphOv(
-                                      size: 12,
-                                      color: ThemeStyles.secondAccent,
-                                      weight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    viewModel.randomPasswrd,
-                                    style: ThemeStyles.regularParagraphOv(
-                                      size: 15,
-                                      color: ThemeStyles.secondAccent,
-                                      weight: FontWeight.w400,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Switch(
-                    value: viewModel.autoGeneratePassword,
-                    inactiveTrackColor: ThemeStyles.darkBtnSolid,
-                    activeTrackColor: ThemeStyles.secondaryColor,
-                    thumbColor:
-                        MaterialStatePropertyAll(ThemeStyles.secondAccent),
-                    onChanged: viewModel.onPasswordToggleChanged,
-                  )
-                ],
-              ),
-              const SizedBox(height: 10),
+              HorizontalDivider(),
               CustomIconButton(
                 label: "Create Tag",
                 callback: viewModel.onCreateTagPressed,

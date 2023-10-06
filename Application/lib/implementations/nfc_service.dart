@@ -1,11 +1,17 @@
-import 'dart:convert';
-
 import 'package:domain/models/tag.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:infrastructure/interfaces/infc_service.dart';
+import 'package:infrastructure/interfaces/iobserver.dart';
 import 'package:ndef/ndef.dart' as ndef;
+import 'package:domain/models/uri_record_dto.dart';
 
 class NfcService implements INfcService {
+  late IObserver _observer;
+
+  NfcService(IObserver observer) {
+    _observer = observer;
+  }
+
   @override
   Future<bool> isNfcSuported() async {
     var availability = await FlutterNfcKit.nfcAvailability;
@@ -21,9 +27,21 @@ class NfcService implements INfcService {
     await FlutterNfcKit.poll();
 
     for (var record in await FlutterNfcKit.readNDEFRecords(cached: false)) {
-      print(record.toString());
-      Map<String, dynamic> jsonMap = json.decode(record.toString());
-      Tag.fromJson(jsonMap);
+      var tagData = record.toString();
+      print(tagData);
+
+      var dto = UriRecordDTO.fromData(tagData);
+      var tagInfo = dto.text.split("\r\n");
+
+      var tag = Tag(
+        name: tagInfo[0],
+        number: tagInfo[2],
+        address: tagInfo[4],
+        petName: tagInfo[6],
+        note: tagInfo.length == 7 ? tagInfo[6] : null,
+      );
+
+      _observer.getObserver("nfc_tag_scanned", tag);
     }
 
     return true;
@@ -37,18 +55,29 @@ class NfcService implements INfcService {
 
   @override
   Future<bool> writeTag(Tag tag) async {
-    String jsonString = json.encode(tag.toJson());
-    await FlutterNfcKit.poll();
+    var poll = await FlutterNfcKit.poll();
+    if (poll.ndefAvailable == null) {}
     String data = "";
-    data += "${tag.name} \r\n";
-    data += "${tag.number} \r\n";
-    data += "${tag.address} \r\n";
-    data += "${tag.petName} \r\n";
-    data += "${tag.note} \r\n";
+    data += "Owner name: ${tag.name} \r\n";
+    data += "\r\n";
+    data += "Phone number: ${tag.number} \r\n";
+    data += "\r\n";
+    data += "Owner address: ${tag.address} \r\n";
+    data += "\r\n";
+    data += "Pet name: ${tag.petName} \r\n";
+
+    if (tag.note != null) {
+      data += "Note: \r\n";
+      data += tag.note!;
+    }
 
     await FlutterNfcKit.writeNDEFRecords(
       [
-        new ndef.UriRecord.fromString(data),
+        new ndef.TextRecord(
+          text: data,
+          encoding: ndef.TextEncoding.UTF8,
+          language: "English",
+        ),
       ],
     );
 

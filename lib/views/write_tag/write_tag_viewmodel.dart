@@ -12,12 +12,16 @@ class WriteTagViewModel extends PageViewModel {
   get writeFinished => _writeFinished;
 
   ready() async {
-    _nfcService = getIt.get<INfcService>();
-    await _nfcService.writeTag(tag);
-    _writeFinished = true;
-    notifyListeners();
-    Future.delayed(Duration(seconds: 2), () {
-      observer.getObserver('nfc_tag_created', null);
-    });
+    try {
+      _nfcService = getIt.get<INfcService>();
+      await _nfcService.writeTag(tag);
+      _writeFinished = true;
+      notifyListeners();
+      Future.delayed(Duration(seconds: 2), () {
+        observer.getObserver('nfc_tag_created', null);
+      });
+    } catch (ex) {
+      ready();
+    }
   }
 }

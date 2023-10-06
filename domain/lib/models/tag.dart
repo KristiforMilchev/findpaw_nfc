@@ -4,7 +4,7 @@ class Tag {
   String address;
   String petName;
   String? note;
-  String password;
+  bool isLocked;
 
   Tag({
     required this.name,
@@ -12,7 +12,7 @@ class Tag {
     required this.address,
     required this.petName,
     this.note,
-    required this.password,
+    this.isLocked = false,
   });
 
   factory Tag.fromJson(Map<String, dynamic> json) {
@@ -22,7 +22,6 @@ class Tag {
       address: json['address'],
       petName: json['petName'],
       note: json['note'],
-      password: "",
     );
   }
 

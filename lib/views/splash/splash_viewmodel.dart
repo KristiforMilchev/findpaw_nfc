@@ -4,8 +4,6 @@ import 'package:domain/models/transition_data.dart';
 import 'package:flutter/material.dart';
 
 class SplashViewModel extends PageViewModel {
-  late BuildContext _context;
-
   SplashViewModel(super.context);
 
   ready(BuildContext context) {
