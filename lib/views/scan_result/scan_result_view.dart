@@ -1,8 +1,5 @@
 import 'package:domain/models/tag.dart';
-import 'package:domain/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/components/custom_button/custom_button.dart';
-import 'package:presentation/components/horizontal_divider/horizontal_divider.dart';
 import 'package:presentation/components/tag_component/tag_component.dart';
 import 'package:presentation/views/scan_result/scan_result_viewmodel.dart';
 import 'package:stacked/stacked.dart';

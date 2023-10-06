@@ -24,27 +24,44 @@ class NfcService implements INfcService {
 
   @override
   Future<bool> readTag() async {
-    await FlutterNfcKit.poll();
+    try {
+      await FlutterNfcKit.poll();
+      var tagEmpty = true;
+      for (var record in await FlutterNfcKit.readNDEFRecords(cached: false)) {
+        tagEmpty = false;
+        var tagData = record.toString();
+        print(tagData);
 
-    for (var record in await FlutterNfcKit.readNDEFRecords(cached: false)) {
-      var tagData = record.toString();
-      print(tagData);
+        var dto = UriRecordDTO.fromData(tagData);
+        var tagInfo = dto.text.split("\r\n");
+        if (tagInfo.length < 6) {
+          _observer.getObserver(
+              "nfc_tag_invalid", "Tag is not in a valid format.");
+          return false;
+        }
 
-      var dto = UriRecordDTO.fromData(tagData);
-      var tagInfo = dto.text.split("\r\n");
+        var tag = Tag(
+          name: tagInfo[0],
+          number: tagInfo[2],
+          address: tagInfo[4],
+          petName: tagInfo[6],
+          note: tagInfo.length == 7 ? tagInfo[6] : null,
+        );
 
-      var tag = Tag(
-        name: tagInfo[0],
-        number: tagInfo[2],
-        address: tagInfo[4],
-        petName: tagInfo[6],
-        note: tagInfo.length == 7 ? tagInfo[6] : null,
-      );
+        _observer.getObserver("nfc_tag_scanned", tag);
+      }
+      if (tagEmpty) {
+        _observer.getObserver(
+          "nfc_tag_invalid",
+          "It appears that the tag is empty.",
+        );
+      }
+      return true;
+    } catch (exception) {
+      _observer.getObserver("nfc_tag_invalid", exception.toString());
 
-      _observer.getObserver("nfc_tag_scanned", tag);
+      return false;
     }
-
-    return true;
   }
 
   @override

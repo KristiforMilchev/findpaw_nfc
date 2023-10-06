@@ -5,6 +5,7 @@ import 'package:infrastructure/interfaces/infc_service.dart';
 import 'package:presentation/page_view_model.dart';
 import 'package:presentation/views/lock_tag/lock_tag_view.dart';
 import 'package:presentation/views/new_tag/new_tag_view.dart';
+import 'package:presentation/views/scan_failed/scan_failed_view.dart';
 import 'package:presentation/views/scan_result/scan_result_view.dart';
 import 'package:presentation/views/scanner/scanner_view.dart';
 import 'package:presentation/views/write_tag/write_tag_view.dart';
@@ -28,6 +29,8 @@ class DashboardViewModel extends PageViewModel {
     observer.subscribe("nfc_tag_created", onTagWritten);
     observer.subscribe("nfc_tag_scanned", onTagScanned);
     observer.subscribe("nfc_tag_protect", onTagProtectRequest);
+    observer.subscribe("nfc_tag_invalid", onScanFialed);
+    observer.subscribe("nfc_scan_again", onScanAgain);
   }
 
   onAddNewSelected() {
@@ -74,6 +77,17 @@ class DashboardViewModel extends PageViewModel {
 
   onTagProtectRequest(Tag tag) {
     _activeScreen = LockTagView(tag: tag);
+    notifyListeners();
+  }
+
+  onScanFialed(String error) {
+    _activeScreen = ScanFailedView(scanResult: error);
+    notifyListeners();
+  }
+
+  onScanAgain() {
+    _activeScreen = ScannerView();
+    _activeView = ActiveDashboardView.scanTag;
     notifyListeners();
   }
 }

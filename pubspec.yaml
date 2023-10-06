@@ -90,6 +90,7 @@ flutter:
     - packages/domain/assets/animations/scanner.riv
     - packages/domain/assets/animations/write_chip.riv
     - packages/domain/assets/animations/attention.riv
+    - packages/domain/assets/animations/scan_failed.riv
 
 
     # certificates
