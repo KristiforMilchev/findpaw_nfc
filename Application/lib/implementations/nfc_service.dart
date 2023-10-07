@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:domain/models/tag.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
@@ -103,7 +105,10 @@ class NfcService implements INfcService {
       data += "Note: \r\n";
       data += tag.note!;
     }
+    List<int> utf8Bytes = utf8.encode(data);
+    int byteSize = utf8Bytes.length;
 
+    print("String size in bytes (UTF-8): $byteSize");
     await FlutterNfcKit.writeNDEFRecords(
       [
         new ndef.TextRecord(

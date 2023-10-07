@@ -8,6 +8,7 @@ import 'package:presentation/views/new_tag/new_tag_view.dart';
 import 'package:presentation/views/scan_failed/scan_failed_view.dart';
 import 'package:presentation/views/scan_result/scan_result_view.dart';
 import 'package:presentation/views/scanner/scanner_view.dart';
+import 'package:presentation/views/tag_history/tag_history_view.dart';
 import 'package:presentation/views/write_tag/write_tag_view.dart';
 
 class DashboardViewModel extends PageViewModel {
@@ -47,6 +48,7 @@ class DashboardViewModel extends PageViewModel {
 
   onListSelected() {
     _activeView = ActiveDashboardView.listTags;
+    _activeScreen = TagHistoryView();
     notifyListeners();
   }
 

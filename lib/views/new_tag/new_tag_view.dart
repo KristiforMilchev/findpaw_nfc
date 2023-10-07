@@ -1,3 +1,4 @@
+import 'package:domain/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/components/custom_icon_button/custom_icon_button.dart';
 import 'package:presentation/components/custom_text_field/custom_text_field.dart';
@@ -12,6 +13,7 @@ class NewTagView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => NewTagViewModel(context),
+      onViewModelReady: (viewModel) => viewModel.ready(),
       builder: (context, viewModel, child) => SafeArea(
         child: Container(
           padding: EdgeInsets.all(10),
@@ -48,7 +50,18 @@ class NewTagView extends StatelessWidget {
               CustomIconButton(
                 label: "Create Tag",
                 callback: viewModel.onCreateTagPressed,
-              )
+              ),
+              Flexible(
+                child: Text(
+                  "The size of the data exceeds the memory of the nfc tag, writing will likely fail.",
+                  style: ThemeStyles.regularParagraphOv(
+                    color: ThemeStyles.acentColor,
+                    size: 14,
+                    weight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ],
           ),
         ),
