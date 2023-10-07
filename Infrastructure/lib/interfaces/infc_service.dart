@@ -5,4 +5,5 @@ abstract class INfcService {
   Future<bool> readTag();
   Future<bool> protect();
   Future<bool> isNfcSuported();
+  Future finishSession();
 }

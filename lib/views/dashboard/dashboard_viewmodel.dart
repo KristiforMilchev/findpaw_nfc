@@ -57,9 +57,11 @@ class DashboardViewModel extends PageViewModel {
     notifyListeners();
   }
 
-  onTagWritten() {
+  onTagWritten() async {
     _activeScreen = ScannerView();
     _activeView = ActiveDashboardView.scanTag;
+    await _nfcService.finishSession();
+    notifyListeners();
   }
 
   void startScanner() async {
@@ -70,18 +72,24 @@ class DashboardViewModel extends PageViewModel {
     }
   }
 
-  onTagScanned(Tag tag) {
+  onTagScanned(Tag tag) async {
     _activeScreen = ScanResultView(tag: tag);
+    await _nfcService.finishSession();
+
     notifyListeners();
   }
 
-  onTagProtectRequest(Tag tag) {
+  onTagProtectRequest(Tag tag) async {
     _activeScreen = LockTagView(tag: tag);
+    await _nfcService.finishSession();
+
     notifyListeners();
   }
 
-  onScanFialed(String error) {
+  onScanFialed(String error) async {
     _activeScreen = ScanFailedView(scanResult: error);
+    await _nfcService.finishSession();
+
     notifyListeners();
   }
 
