@@ -8,15 +8,17 @@ class ScannerViewModel extends PageViewModel {
 
   ready() {
     _nfcService = getIt.get<INfcService>();
+    observer.subscribe("nfc_scan_again", onScanRequest);
     startScanner();
   }
 
   void startScanner() async {
-    try {
-      await _nfcService.readTag();
-    } catch (ex) {
-      startScanner();
-    }
+    await _nfcService.readTag();
+
+    startScanner();
+  }
+
+  onScanRequest() {
     startScanner();
   }
 }

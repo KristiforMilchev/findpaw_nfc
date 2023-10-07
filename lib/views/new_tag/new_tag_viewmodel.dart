@@ -48,11 +48,10 @@ class NewTagViewModel extends PageViewModel {
       note: _note,
     );
 
-    //if (TagValidator.validate(newTag))
-
-    observer.getObserver(
-      "on_write_activated",
-      newTag,
-    );
+    if (TagValidator.validate(newTag))
+      observer.getObserver(
+        "on_write_activated",
+        newTag,
+      );
   }
 }

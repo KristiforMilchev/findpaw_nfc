@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Tag {
   String name;
   String number;
@@ -33,5 +35,23 @@ class Tag {
       'petName': petName,
       'note': note,
     };
+  }
+
+// Function to serialize a list of tags to JSON
+  static List<Map<String, dynamic>> tagsListToJson(List<Tag> tags) {
+    return tags.map((tag) => tag.toJson()).toList();
+  }
+
+// Function to deserialize a list of tags from JSON
+  static List<Tag> tagsListFromJson(List<Map<String, dynamic>> jsonList) {
+    return jsonList.map((json) => Tag.fromJson(json)).toList();
+  }
+
+  static bool isEqual(Tag t1, Tag t2) {
+    return t1.name == t2.name &&
+        t1.address == t2.address &&
+        t1.number == t2.number &&
+        t1.petName == t2.petName &&
+        t1.note == t2.note;
   }
 }

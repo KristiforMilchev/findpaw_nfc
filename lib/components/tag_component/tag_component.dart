@@ -118,7 +118,7 @@ class TagComponent extends StatelessWidget {
                 ),
               HorizontalDivider(),
               Container(
-                padding: EdgeInsets.fromLTRB(40, 8, 40, 8),
+                padding: EdgeInsets.fromLTRB(40, 0, 40, 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -138,6 +138,33 @@ class TagComponent extends StatelessWidget {
                   ],
                 ),
               ),
+              if (tag.note != null)
+                Container(
+                  padding: EdgeInsets.fromLTRB(40, 8, 40, 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.note,
+                        color: ThemeStyles.secondAccent,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Flexible(
+                        child: Text(
+                          tag.note!.split(":").last,
+                          style: ThemeStyles.regularParagraphOv(
+                            color: ThemeStyles.secondAccent,
+                            size: 15,
+                            weight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
             ],
           ),
         ],
