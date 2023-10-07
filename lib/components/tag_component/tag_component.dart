@@ -23,6 +23,7 @@ class TagComponent extends StatelessWidget {
             right: 5,
             top: 5,
             child: CustomButton(
+              enabled: callback != null,
               callback: () => callback != null ? callback!.call() : () {},
               widget: Icon(
                 tag.isLocked ? Icons.lock : Icons.lock_open_rounded,
