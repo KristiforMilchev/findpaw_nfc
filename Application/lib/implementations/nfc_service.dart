@@ -79,7 +79,6 @@ class NfcService implements INfcService {
   @override
   Future<bool> protect() async {
     await FlutterNfcKit.poll();
-
     await FlutterNfcKit.makeNdefReadOnly();
     await FlutterNfcKit.finish();
 

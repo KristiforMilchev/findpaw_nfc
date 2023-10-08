@@ -15,82 +15,90 @@ class LockTagView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => LockTagViewModel(context, tag),
-      builder: (context, viewModel, child) => Container(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                TagComponent(tag: tag),
-              ],
-            ),
-            Positioned(
-              height: ThemeStyles.height! / 1.03,
-              width: ThemeStyles.width,
-              child: Container(
-                width: 200,
-                height: 200,
-                child: RiveAnimation.asset(
-                  fit: BoxFit.contain,
-                  "packages/domain/assets/animations/attention.riv",
+      onViewModelReady: (viewModel) => viewModel.ready(),
+      builder: (context, viewModel, child) => Visibility(
+        visible: viewModel.writeFinished,
+        replacement: Container(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  TagComponent(tag: tag),
+                ],
+              ),
+              Positioned(
+                height: ThemeStyles.height! / 1.03,
+                width: ThemeStyles.width,
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  child: RiveAnimation.asset(
+                    fit: BoxFit.contain,
+                    "packages/domain/assets/animations/attention.riv",
+                  ),
                 ),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Attention",
-                  style: ThemeStyles.regularParagraphOv(
-                    color: ThemeStyles.acentColor,
-                    size: 20,
-                    weight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "Locking an NFC tag is permanent and irreversible. This ensures that stored data cannot be changed by anyone. Please review data carefully before locking.",
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Attention",
                     style: ThemeStyles.regularParagraphOv(
-                      color: ThemeStyles.secondAccent,
-                      size: 15,
+                      color: ThemeStyles.acentColor,
+                      size: 20,
                       weight: FontWeight.bold,
                     ),
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CustomIconButton(
-                          label: "Cancel",
-                          callback: viewModel.onCancelPressed,
-                          decorationRadius:
-                              BorderRadius.all(Radius.circular(6)),
-                          btnRadius: 6,
-                        ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      "Locking an NFC tag is permanent and irreversible. This ensures that stored data cannot be changed by anyone. Please review data carefully before locking.",
+                      style: ThemeStyles.regularParagraphOv(
+                        color: ThemeStyles.secondAccent,
+                        size: 15,
+                        weight: FontWeight.bold,
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: CustomIconButton(
-                          label: "Confirm",
-                          callback: viewModel.onConfirmPressed,
-                          solidColor: ThemeStyles.acentColor,
-                          decorationRadius:
-                              BorderRadius.all(Radius.circular(6)),
-                          btnRadius: 6,
-                        ),
-                      ),
-                    ],
+                      textAlign: TextAlign.justify,
+                    ),
                   ),
-                )
-              ],
-            )
-          ],
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CustomIconButton(
+                            label: "Cancel",
+                            callback: viewModel.onCancelPressed,
+                            decorationRadius:
+                                BorderRadius.all(Radius.circular(6)),
+                            btnRadius: 6,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: CustomIconButton(
+                            label: "Confirm",
+                            callback: viewModel.onConfirmPressed,
+                            solidColor: ThemeStyles.acentColor,
+                            decorationRadius:
+                                BorderRadius.all(Radius.circular(6)),
+                            btnRadius: 6,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+        child: RiveAnimation.asset(
+          fit: BoxFit.contain,
+          "packages/domain/assets/animations/success_checkmark.riv",
         ),
       ),
     );

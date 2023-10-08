@@ -19,18 +19,18 @@ class TagComponent extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          Positioned(
-            right: 5,
-            top: 5,
-            child: CustomButton(
-              enabled: callback != null,
-              callback: () => callback != null ? callback!.call() : () {},
-              widget: Icon(
-                tag.isLocked ? Icons.lock : Icons.lock_open_rounded,
-                color: ThemeStyles.secondAccent,
-              ),
-            ),
-          ),
+          // Positioned(
+          //   right: 5,
+          //   top: 5,
+          //   child: CustomButton(
+          //     enabled: callback != null,
+          //     callback: () => callback != null ? callback!.call() : () {},
+          //     widget: Icon(
+          //       tag.isLocked ? Icons.lock : Icons.lock_open_rounded,
+          //       color: ThemeStyles.secondAccent,
+          //     ),
+          //   ),
+          // ),
           Column(
             children: [
               const SizedBox(height: 20),
