@@ -18,6 +18,10 @@ class NewTagViewModel extends PageViewModel {
 
   NewTagViewModel(super.context);
 
+  get tagCapacity => 130;
+  int _dataSize = 0;
+  get dataSize => _dataSize;
+
   ready() async {
     _nfcService = getIt.get<INfcService>();
     await _nfcService.finishSession();
@@ -51,15 +55,11 @@ class NewTagViewModel extends PageViewModel {
       petName: _petName,
       note: _note,
     );
-
-    var map = newTag.toJson();
-    var data = json.encode(map);
-    List<int> utf8Bytes = utf8.encode(data);
-    int byteSize = utf8Bytes.length;
+    var byteSize = getSize(newTag);
 
     print("String size in bytes (UTF-8): $byteSize");
-    _sizeFlag = byteSize < 137;
-
+    _sizeFlag = byteSize < 130;
+    _dataSize = byteSize;
     if (TagValidator.validate(newTag) && sizeFlag)
       observer.getObserver(
         "on_write_activated",
@@ -67,5 +67,17 @@ class NewTagViewModel extends PageViewModel {
       );
 
     notifyListeners();
+  }
+
+  int getSize(Tag tag) {
+    String data = "";
+    data += "Owner name: ${tag.name} \r\n";
+    data += "Phone number: ${tag.number} \r\n";
+    data += "Owner address: ${tag.address} \r\n";
+    data += "Pet name: ${tag.petName} \r\n";
+
+    List<int> utf8Bytes = utf8.encode(data);
+    int byteSize = utf8Bytes.length;
+    return byteSize;
   }
 }
