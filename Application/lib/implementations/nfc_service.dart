@@ -40,7 +40,7 @@ class NfcService implements INfcService {
 
         var dto = UriRecordDTO.fromData(tagData);
         var tagInfo = dto.text.split("\r\n");
-        if (tagInfo.length < 6) {
+        if (tagInfo.length < 5) {
           _observer.getObserver(
               "nfc_tag_invalid", "Tag is not in a valid format.");
           return false;
@@ -48,10 +48,9 @@ class NfcService implements INfcService {
 
         var tag = Tag(
           name: tagInfo[0],
-          number: tagInfo[2],
-          address: tagInfo[4],
-          petName: tagInfo[6],
-          note: tagInfo.length == 9 ? tagInfo[8] : null,
+          number: tagInfo[1],
+          address: tagInfo[2],
+          petName: tagInfo[3],
         );
         await _tagRepository.addScan(tag);
         _observer.getObserver("nfc_tag_scanned", tag);
@@ -94,17 +93,15 @@ class NfcService implements INfcService {
     if (poll.ndefAvailable == null) {}
     String data = "";
     data += "Owner name: ${tag.name} \r\n";
-    data += "\r\n";
     data += "Phone number: ${tag.number} \r\n";
-    data += "\r\n";
     data += "Owner address: ${tag.address} \r\n";
-    data += "\r\n";
     data += "Pet name: ${tag.petName} \r\n";
 
     if (tag.note != null) {
       data += "Note: \r\n";
       data += tag.note!;
     }
+
     List<int> utf8Bytes = utf8.encode(data);
     int byteSize = utf8Bytes.length;
 
